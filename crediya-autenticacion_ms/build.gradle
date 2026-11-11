@@ -24,4 +24,9 @@ subprojects {
     ext['jackson-2-bom.version'] = "2.22.4"
     ext['jackson-bom.version'] = "3.2.4"
 }
+def localBuildOutput = new File(gradle.gradleUserHomeDir, "crediya-builds/" + rootProject.name)
+layout.buildDirectory.set(new File(localBuildOutput, "root"))
 
+subprojects {
+    layout.buildDirectory.set(new File(localBuildOutput, project.name))
+}
