@@ -1,0 +1,1 @@
+CREATE DATABASE crediya_solicitudes OWNER crediya_user;

@@ -1,7 +1,7 @@
 services:
-  postgres-db:
+  postgres:
     image: postgres:15-alpine
-    container_name: crediya-auth-db
+    container_name: crediya-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: crediya_auth
@@ -11,30 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - crediya-network
-
-  postgres-solicitudes:
-    image: postgres:15-alpine
-    container_name: crediya-solicitudes-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: crediya_solicitudes
-      POSTGRES_USER: crediya_user
-      POSTGRES_PASSWORD: crediya_pass
-    ports:
-      - "5433:5432"
-    volumes:
-      - solicitudes_postgres_data:/var/lib/postgresql/data
-    networks:
-      - crediya-network
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
 
 volumes:
   postgres_data:
     driver: local
-  solicitudes_postgres_data:
-    driver: local
-
-networks:
-  crediya-network:
-    driver: bridge

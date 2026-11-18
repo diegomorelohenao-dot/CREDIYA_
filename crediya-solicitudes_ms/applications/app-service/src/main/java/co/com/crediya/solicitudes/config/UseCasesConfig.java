@@ -1,5 +1,7 @@
 package co.com.crediya.solicitudes.config;
 
+import co.com.crediya.solicitudes.usecase.registrarsolicitud.ValidarPlazoSolicitud;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -11,4 +13,9 @@ import org.springframework.context.annotation.FilterType;
         },
         useDefaultFilters = false)
 public class UseCasesConfig {
+
+    @Bean
+    public ValidarPlazoSolicitud validarPlazoSolicitud() {
+        return new ValidarPlazoSolicitud();
+    }
 }
