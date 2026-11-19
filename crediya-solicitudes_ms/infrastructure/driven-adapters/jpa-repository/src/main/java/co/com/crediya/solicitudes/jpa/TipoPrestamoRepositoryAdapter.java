@@ -25,6 +25,7 @@ public class TipoPrestamoRepositoryAdapter implements TipoPrestamoRepository {
                 .nombre(entity.getNombre())
                 .plazoMinimoMeses(entity.getPlazoMinimoMeses())
                 .plazoMaximoMeses(entity.getPlazoMaximoMeses())
+                .tasaInteres(entity.getTasaInteres())
                 .activo(entity.isActivo())
                 .build();
     }
