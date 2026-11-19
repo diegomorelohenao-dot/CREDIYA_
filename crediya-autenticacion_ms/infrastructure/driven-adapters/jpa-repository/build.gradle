@@ -6,3 +6,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 }
+
+// Este test de infraestructura depende de un driver JDBC que PIT no carga en su classpath.
+pitest {
+    excludedTestClasses = ['co.com.crediya.autenticacion.jpa.config.JpaConfigTest']
+}

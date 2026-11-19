@@ -7,6 +7,7 @@ import co.com.crediya.autenticacion.usecase.registrarusuario.NormalizarDatosUsua
 import co.com.crediya.autenticacion.usecase.registrarusuario.ValidarDatosObligatoriosUsuario;
 import co.com.crediya.autenticacion.usecase.registrarusuario.ValidarEdadMinima;
 import co.com.crediya.autenticacion.usecase.registrarusuario.ValidarRangoSalario;
+import co.com.crediya.autenticacion.usecase.registrarusuario.ValidarPermisoRegistroUsuario;
 import co.com.crediya.autenticacion.usecase.registrarusuario.ValidarReglasRegistroUsuario;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,5 +48,10 @@ public class UseCasesConfig {
     @Bean
     public NormalizadorUsuario normalizadorUsuario() {
         return new NormalizarDatosUsuario();
+    }
+
+    @Bean
+    public ValidarPermisoRegistroUsuario validarPermisoRegistroUsuario() {
+        return new ValidarPermisoRegistroUsuario();
     }
 }

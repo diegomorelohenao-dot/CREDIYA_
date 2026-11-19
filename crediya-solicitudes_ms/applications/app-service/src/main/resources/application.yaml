@@ -20,6 +20,10 @@ spring:
   sql:
     init:
       mode: always
+security:
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:3600}
 springdoc:
   swagger-ui.path: /swagger-ui.html
   api-docs.path: /v3/api-docs

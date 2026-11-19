@@ -1,5 +1,6 @@
 package co.com.crediya.autenticacion.api;
 
+import co.com.crediya.autenticacion.model.usuario.RolUsuario;
 import co.com.crediya.autenticacion.model.usuario.Usuario;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -16,19 +17,14 @@ public record UsuarioResponse(
         String direccion,
         String telefono,
         String correoElectronico,
-        BigDecimal salarioBase
+        BigDecimal salarioBase,
+        RolUsuario rol
 ) {
     public static UsuarioResponse from(Usuario usuario) {
         return new UsuarioResponse(
-                usuario.getId(),
-                usuario.getNombres(),
-                usuario.getApellidos(),
-                usuario.getDocumento(),
-                usuario.getFechaNacimiento(),
-                usuario.getDireccion(),
-                usuario.getTelefono(),
-                usuario.getCorreoElectronico(),
-                usuario.getSalarioBase()
+                usuario.getId(), usuario.getNombres(), usuario.getApellidos(), usuario.getDocumento(),
+                usuario.getFechaNacimiento(), usuario.getDireccion(), usuario.getTelefono(),
+                usuario.getCorreoElectronico(), usuario.getSalarioBase(), usuario.getRol()
         );
     }
 }

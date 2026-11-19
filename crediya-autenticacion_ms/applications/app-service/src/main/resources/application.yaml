@@ -16,6 +16,14 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+security:
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:3600}
 springdoc:
   swagger-ui.path: /swagger-ui.html
   api-docs.path: /v3/api-docs
@@ -30,3 +38,20 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+
+# Bootstrap del primer ADMIN. Deshabilitado por defecto.
+# Para habilitarlo: BOOTSTRAP_ADMIN_ENABLED=true y BOOTSTRAP_ADMIN_PASSWORD=<secreto>.
+# El resto de campos tiene valores por defecto y pueden sobreescribirse por entorno.
+# En producción, entregar la contraseña siempre desde un secreto, nunca en claro.
+bootstrap:
+  admin:
+    enabled: ${BOOTSTRAP_ADMIN_ENABLED:false}
+    correo: ${BOOTSTRAP_ADMIN_CORREO:admin@crediya.com}
+    password: ${BOOTSTRAP_ADMIN_PASSWORD:}
+    documento: ${BOOTSTRAP_ADMIN_DOCUMENTO:0000000001}
+    nombres: ${BOOTSTRAP_ADMIN_NOMBRES:Administrador}
+    apellidos: ${BOOTSTRAP_ADMIN_APELLIDOS:CreDiYa}
+    fecha-nacimiento: ${BOOTSTRAP_ADMIN_FECHA_NACIMIENTO:1990-01-01}
+    direccion: ${BOOTSTRAP_ADMIN_DIRECCION:Sin dirección}
+    telefono: ${BOOTSTRAP_ADMIN_TELEFONO:3000000000}
+    salario-base: ${BOOTSTRAP_ADMIN_SALARIO_BASE:1000000}

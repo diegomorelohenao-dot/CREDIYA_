@@ -10,6 +10,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public class JPARepositoryAdapter
         extends AdapterOperations<Usuario, UsuarioEntity, Long, JPARepository>
@@ -28,6 +30,12 @@ public class JPARepositoryAdapter
     @Override
     public boolean existsByDocumento(String documento) {
         return repository.existsByDocumento(documento);
+    }
+
+    @Override
+    public Optional<Usuario> findByCorreoElectronico(String correoElectronico) {
+        return repository.findByCorreoElectronicoIgnoreCase(correoElectronico)
+                .map(entity -> mapper.mapBuilder(entity, Usuario.UsuarioBuilder.class).build());
     }
 
     @Override

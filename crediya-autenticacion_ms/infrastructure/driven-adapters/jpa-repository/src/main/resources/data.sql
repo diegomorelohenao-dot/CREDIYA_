@@ -1,0 +1,1 @@
+UPDATE usuarios SET rol = 'CLIENTE' WHERE rol IS NULL;

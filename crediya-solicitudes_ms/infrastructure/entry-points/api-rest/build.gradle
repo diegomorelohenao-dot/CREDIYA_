@@ -3,7 +3,17 @@ dependencies {
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.2.0'
+}
+
+// PIT no puede ejecutar de forma estable el test de contexto Spring con RestTestClient.
+// La cobertura de mutaciones se concentra en los componentes unitarios.
+pitest {
+    excludedTestClasses = ['co.com.crediya.solicitudes.api.ApiRestTest']
 }

@@ -24,4 +24,11 @@ public class Usuario {
     private String telefono;
     private String correoElectronico;
     private BigDecimal salarioBase;
+    private String passwordHash;
+    private RolUsuario rol;
+
+    public String getNombreCompleto() {
+        return ((nombres == null ? "" : nombres.trim()) + " " +
+                (apellidos == null ? "" : apellidos.trim())).trim();
+    }
 }

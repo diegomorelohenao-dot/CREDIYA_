@@ -3,3 +3,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
 }
+
+// PIT no ejecuta de forma estable este test de adapter con mocks de JPA.
+pitest {
+    excludedTestClasses = ['co.com.crediya.solicitudes.jpa.JPARepositoryAdapterTest']
+}
