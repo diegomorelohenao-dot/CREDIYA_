@@ -6,6 +6,7 @@ import co.com.crediya.solicitudes.model.solicitud.EstadoSolicitud;
 import co.com.crediya.solicitudes.model.solicitud.FiltroSolicitudes;
 import co.com.crediya.solicitudes.usecase.listarsolicitudes.ListarSolicitudesParaRevisionUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Revisión de solicitudes", description = "Listado paginado para revisión manual")
 @RestController
 @RequestMapping(value = "/api/v1/solicitud", produces = MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class RevisionSolicitudesApi {
 

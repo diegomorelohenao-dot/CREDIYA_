@@ -3,6 +3,7 @@ package co.com.crediya.solicitudes.api;
 import co.com.crediya.solicitudes.api.security.JwtAuthenticatedUser;
 import co.com.crediya.solicitudes.usecase.registrarsolicitud.RegistrarSolicitudUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/solicitud", produces = MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class ApiRest {
     private final RegistrarSolicitudUseCase registrarSolicitudUseCase;
