@@ -4,6 +4,7 @@ import co.com.crediya.autenticacion.api.security.JwtAuthenticatedUser;
 import co.com.crediya.autenticacion.usecase.registrarusuario.RegistrarUsuarioCommand;
 import co.com.crediya.autenticacion.usecase.registrarusuario.RegistrarUsuarioUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/usuarios/internos", produces = MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class RegistroUsuarioInternoApi {
     private final RegistrarUsuarioUseCase registrarUsuarioUseCase;
