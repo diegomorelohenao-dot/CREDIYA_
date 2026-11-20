@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
@@ -29,18 +30,22 @@ public class SolicitudEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ColumnDefault("0")
     @Column(name = "solicitante_id", nullable = false)
     private Long solicitanteId;
 
     @Column(name = "documento_cliente", nullable = false, length = 30)
     private String documentoCliente;
 
+    @ColumnDefault("'No disponible'")
     @Column(name = "nombre_cliente", nullable = false, length = 150)
     private String nombreCliente;
 
+    @ColumnDefault("'No disponible'")
     @Column(name = "correo_electronico", nullable = false, length = 150)
     private String correoElectronico;
 
+    @ColumnDefault("0")
     @Column(name = "salario_base", nullable = false, precision = 15, scale = 2)
     private BigDecimal salarioBase;
 
@@ -54,9 +59,11 @@ public class SolicitudEntity {
     @JoinColumn(name = "tipo_prestamo_id", nullable = false)
     private TipoPrestamoEntity tipoPrestamo;
 
+    @ColumnDefault("0")
     @Column(name = "tasa_interes", nullable = false, precision = 9, scale = 6)
     private BigDecimal tasaInteres;
 
+    @ColumnDefault("0")
     @Column(name = "cuota_mensual", nullable = false, precision = 15, scale = 2)
     private BigDecimal cuotaMensual;
 

@@ -36,11 +36,11 @@ public class RevisionSolicitudesApi {
             @ApiResponse(responseCode = "403", description = "El rol no puede revisar solicitudes.")
     })
     public ResponseEntity<PaginaResponse<SolicitudRevisionResponse>> listar(
-            @RequestParam(required = false) EstadoSolicitud estado,
-            @RequestParam(required = false) String codigoTipoPrestamo,
-            @RequestParam(required = false) String documentoCliente,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(name = "estado", required = false) EstadoSolicitud estado,
+            @RequestParam(name = "codigoTipoPrestamo", required = false) String codigoTipoPrestamo,
+            @RequestParam(name = "documentoCliente", required = false) String documentoCliente,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "20") int size,
             @AuthenticationPrincipal JwtAuthenticatedUser autenticado) {
         if (autenticado == null) {
             throw new RolNoAutorizadoException("Se requiere un usuario autenticado.");

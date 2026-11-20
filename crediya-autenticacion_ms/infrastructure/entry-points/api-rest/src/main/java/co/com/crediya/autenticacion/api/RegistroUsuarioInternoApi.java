@@ -39,7 +39,7 @@ public class RegistroUsuarioInternoApi {
     })
     public ResponseEntity<UsuarioResponse> registrar(
             @Valid @RequestBody RegistroUsuarioRequest request,
-            @RequestParam RolInternoUsuario rol,
+            @RequestParam(name = "rol") RolInternoUsuario rol,
             @AuthenticationPrincipal JwtAuthenticatedUser autenticado) {
         var command = request.toCommand(rol.toDomain(), autenticado.rol());
         var usuario = registrarUsuarioUseCase.registrarUsuario(command);

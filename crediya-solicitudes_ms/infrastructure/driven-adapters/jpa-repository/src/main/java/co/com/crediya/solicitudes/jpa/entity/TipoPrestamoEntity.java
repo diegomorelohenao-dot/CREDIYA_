@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
@@ -35,6 +36,7 @@ public class TipoPrestamoEntity {
     @Column(name = "plazo_maximo_meses", nullable = false)
     private Integer plazoMaximoMeses;
 
+    @ColumnDefault("0")
     @Column(name = "tasa_interes", nullable = false, precision = 9, scale = 6)
     private BigDecimal tasaInteres;
 

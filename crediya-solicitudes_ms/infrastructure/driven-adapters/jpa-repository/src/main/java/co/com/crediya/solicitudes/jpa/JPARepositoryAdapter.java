@@ -49,8 +49,11 @@ public class JPARepositoryAdapter implements SolicitudRepository {
     @Transactional(readOnly = true)
     public Pagina<Solicitud> findAll(FiltroSolicitudes filtro, int pagina, int tamano) {
         var pageable = PageRequest.of(pagina, tamano, Sort.by(Sort.Direction.DESC, "id"));
+        var codigoTipoPrestamo = filtro.codigoTipoPrestamo() == null
+                ? null
+                : filtro.codigoTipoPrestamo().toUpperCase();
         var resultado = solicitudRepository.findAllFiltered(
-                filtro.estado(), filtro.codigoTipoPrestamo(), filtro.documentoCliente(), pageable);
+                filtro.estado(), codigoTipoPrestamo, filtro.documentoCliente(), pageable);
 
         List<Solicitud> contenido = resultado.getContent().stream().map(this::toDomain).toList();
         return new Pagina<>(contenido, resultado.getNumber(), resultado.getSize(),

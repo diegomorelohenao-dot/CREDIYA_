@@ -15,7 +15,7 @@ public interface JPARepository extends JpaRepository<SolicitudEntity, Long> {
     @Query("""
             SELECT s FROM SolicitudEntity s
             WHERE (:estado IS NULL OR s.estado = :estado)
-              AND (:codigoTipoPrestamo IS NULL OR UPPER(s.tipoPrestamo.codigo) = UPPER(:codigoTipoPrestamo))
+              AND (:codigoTipoPrestamo IS NULL OR UPPER(s.tipoPrestamo.codigo) = :codigoTipoPrestamo)
               AND (:documentoCliente IS NULL OR s.documentoCliente = :documentoCliente)
             """)
     Page<SolicitudEntity> findAllFiltered(

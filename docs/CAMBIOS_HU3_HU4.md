@@ -128,6 +128,17 @@ La deuda mensual se calcula sumando `cuotaMensual` de las solicitudes del mismo 
 - Dockerfile de ambos servicios: se crea el usuario `appuser` antes de usarlo y se elimina `-Xshareclasses` (opción de OpenJ9 incompatible con el JDK Temurin usado en la imagen).
 - Configuración de PIT: se excluyen los tests de contexto Spring/Mockito que no son estables en el entorno de mutación (fallaban desde la línea base, antes de estos cambios). Los tests unitarios y de mutación del resto pasan.
 
+## Notas de arranque (problemas encontrados al ejecutar en local)
+
+Al levantar los servicios con `bootRun` (no cubiertos por los tests de contexto) aparecieron tres fallos que ya están corregidos:
+
+1. **Falta de bean `ObjectMapper`**: Spring Boot 4 autoconfigura un `ObjectMapper` de Jackson 3 (`tools.jackson.*`), pero los filtros JWT inyectan Jackson 2 (`com.fasterxml.jackson.*`). Se agregó `JacksonConfig` en `api-rest` de ambos servicios, con un bean `jackson2ObjectMapper` (nombre distinto para no chocar con el `ObjectMapperConfig` de `org.reactivecommons`).
+2. **Falta de bean `ValidarPlazoSolicitud`**: el `ComponentScan` de `UseCasesConfig` sólo incluye clases que terminan en `UseCase`. Se registró explícitamente como `@Bean`.
+3. **Columnas `NOT NULL` sobre tablas con datos**: `ddl-auto: update` no podía agregar las columnas nuevas del snapshot porque `solicitudes` y `tipos_prestamo` ya tenían filas. Se agregó `@ColumnDefault` en las entidades para que Hibernate genere `DEFAULT` en el `ALTER TABLE`. `data.sql` luego actualiza los valores reales (las tasas se fuerzan siempre, no sólo cuando son NULL, porque el default dejó 0).
+4. **`@RequestParam` sin nombre explícito**: sin el flag `-parameters` en tiempo de compilación, Spring no podía resolver los parámetros `rol`, `estado`, `codigoTipoPrestamo`, `documentoCliente`, `page` y `size` (HTTP 400). Se agregó `name = "..."` en todas las anotaciones.
+5. **`UPPER(:parametro)` en Hibernate 7 + PostgreSQL**: el filtro por código de tipo de préstamo generaba `upper(?)` y PostgreSQL infería el parámetro como `bytea` (`function upper(bytea) does not exist`). Se normaliza el valor a mayúsculas en el adapter y la consulta compara contra el parámetro directamente.
+6. **PowerShell y `curl.exe`**: al pasar JSON con comillas dobles desde Windows PowerShell, `curl.exe` puede perderlas y provocar un 400 engañoso. Para probar en local es preferible `Invoke-RestMethod` con `-Body (@{...} | ConvertTo-Json)`.
+
 ## Verificación
 
 ```powershell

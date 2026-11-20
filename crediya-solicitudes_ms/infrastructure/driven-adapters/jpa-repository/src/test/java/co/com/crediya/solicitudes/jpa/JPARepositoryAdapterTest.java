@@ -70,6 +70,18 @@ class JPARepositoryAdapterTest {
     }
 
     @Test
+    void normalizesLoanTypeFilterToUpperCase() {
+        var filtro = new FiltroSolicitudes(null, "libre_inversion", null);
+        when(solicitudRepository.findAllFiltered(eq(null), eq("LIBRE_INVERSION"), eq(null), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of()));
+
+        adapter.findAll(filtro, 0, 20);
+
+        org.mockito.Mockito.verify(solicitudRepository)
+                .findAllFiltered(eq(null), eq("LIBRE_INVERSION"), eq(null), any(Pageable.class));
+    }
+
+    @Test
     void returnsZeroWhenThereIsNoApprovedDebt() {
         when(solicitudRepository.sumarCuotasAprobadas(any(), eq(EstadoSolicitud.APROBADA))).thenReturn(null);
         assertEquals(0, BigDecimal.ZERO.compareTo(adapter.sumarCuotasAprobadas(15L)));
